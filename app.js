@@ -1,9 +1,12 @@
 const express = require('express')
 
 const app = express()
+
 app.use(express.json());
 
 const port = 1500
+
+
 
 //Parametros de consulta y de ruta
 app.post('/:domicilio', (req, res) => {
@@ -21,7 +24,6 @@ app.post('/:domicilio', (req, res) => {
 })
 
 
-
 app.post('/:id/:peso', (req, res) => {
   let id = req.params.id;
   let peso = req.params.peso;
@@ -36,18 +38,41 @@ app.post('/:id/:peso', (req, res) => {
 })
 
 app.delete('/ejercicio3', (req, res) => {
-  const CC = req.query.CC;
+  let CC = req.query.CC;
   let motivo = req.body.motivo;
-  const ID = req.header("Authorization")
+  let ID = req.header("Authorization")
   return res.status(200).json({
-    'Status': 'ok registrado', 
     CC: CC, 
     motivo: motivo, 
     ID: ID
   })
 })
 
+app.put('/ejercicio4', (req, res) => {
+  let CC = req.query.CC;
+  let apellido = req.body.apellido;
+  let domicilio = req.header("Authorization")
+  return res.status(200).json({
+    CC: CC, 
+    apellido: apellido, 
+    domicilio: domicilio
+  })
+})
+
+app.get('/:cantidad/:marca', (req, res) => {
+  let precio = req.query.precio;
+  let cantidad = req.params.cantidad;
+  let marca = req.params.marca; 
+  let domicilio = req.header("Authorization")
+  return res.status(200).json({
+    precio: precio, 
+    cantidad: cantidad,
+    marca: marca,
+    domicilio: domicilio
+  })
+})
+
+
 app.listen(port, () => {
   console.log("Servidor iniciado en el puerto ${port}")
 })
-
